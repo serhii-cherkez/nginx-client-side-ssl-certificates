@@ -1,0 +1,53 @@
+[ ca ]
+default_ca	= CA_default		# The default ca section
+
+[ CA_default ]
+dir = .                                 # Where everything is kept
+new_certs_dir	= $dir/certs
+certs		    = $dir/certs		    # Where the issued certs are kept
+database	    = $dir/index/index.txt	# database index file.
+crlnumber	    = $dir/crl/crlnumber	# the current crl number
+crl		        = $dir/ca/ca.crl
+crl		        = $dir/ca/crl.pem	    # The current CRL
+private_key	    = $dir/ca/ca.key        # The private key
+
+default_days	= 365			    # how long to certify for
+default_crl_days= 30			    # how long before next CRL
+default_md	= default		        # use public key default MD
+preserve	= no			        # keep passed DN ordering
+
+[ req ]
+# Options for the `req` tool: PKCS#10 certificate request and certificate generating utility. (`man req`)
+distinguished_name	= req_distinguished_name
+# does not prompt for dn fields
+prompt			= no
+
+# Extension to add when the -x509 option is used (certificate creation in one pass)
+x509_extensions     = ca_certificate_extensions
+
+# Default md (message digest to use for the hash/fingerprint)
+# option: SHA-1 is deprecated, so use SHA-2 family instead
+# TLS server certificates and issuing CAs must use a hash algorithm from the SHA-2 family in the signature algorithm
+# https://support.apple.com/en-us/HT210176
+default_md          = sha256
+
+[ req_distinguished_name ]
+# CN used to create the CA root
+C			= UA
+O			= Organization Name
+CN			= Common Name
+
+[ ca_certificate_extensions ]
+
+# A CA certificate must contains: CA: true
+# pathlen: 0 - the certificate can only be used to sign end user certificates and not further CAs.
+basicConstraints = critical, CA:true, pathlen:0
+
+# Key Usage
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+# Used to sign server or client auth
+extendedKeyUsage=serverAuth, clientAuth
+
+# as seen https://www.openssl.org/docs/man1.0.2/man1/openssl-req.html under v3_ca example
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
