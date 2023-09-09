@@ -15,6 +15,9 @@ Then run **openssl-ca.sh** to create CA certificates:
 ```
 
 When CA certificates is created, you can run **openssl-client.sh**, and you will get the choice to:
+```
+./openssl-client.sh
+```
 
 + Generate new certificate
 + Revoke and delete a certificate
