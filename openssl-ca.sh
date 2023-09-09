@@ -6,6 +6,9 @@
      ca_crt=ca/ca.crt
      ca_crl=ca/ca.crl
 
+# Create CA folder
+mkdir ca
+
 # Function to generate a new CA certificate
 openssl req \
     -x509 \
