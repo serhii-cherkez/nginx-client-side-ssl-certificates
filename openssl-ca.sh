@@ -6,8 +6,8 @@
      ca_crt=ca/ca.crt
      ca_crl=ca/ca.crl
 
-# Create CA folder
-mkdir ca
+# Create CA and certs folder
+mkdir ca certs
 
 # Function to generate a new CA certificate
 openssl req \
