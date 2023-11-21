@@ -1,4 +1,4 @@
-# Nginx client-side SSL certificates script
+# Shell script to make OpenSSL certificates
 
 ## Usage
 
